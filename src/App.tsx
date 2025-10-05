@@ -6,7 +6,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 function App() {
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#0a0e1a] via-[#0f1624] to-[#0a0e1a]">
         <Header />
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
@@ -18,10 +18,10 @@ function App() {
           </ErrorBoundary>
         </main>
 
-        <footer className="bg-[#132257] text-white py-6 mt-8 sm:mt-12">
+        <footer className="bg-gradient-to-r from-[#0c1420] to-[#0f1a2e] text-white py-8 mt-12 border-t border-[#1a2942]">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <p className="text-xs sm:text-sm text-blue-200">
-              Come On You Spurs! | COYS Forever
+            <p className="text-sm text-slate-400 font-light tracking-wide">
+              Come On You Spurs | COYS Forever
             </p>
           </div>
         </footer>

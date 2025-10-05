@@ -13,20 +13,21 @@ export default function NewsCard({ article }: NewsCardProps) {
   });
 
   return (
-    <article className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-[#132257] group animate-slide-up">
-      <div className="p-4 sm:p-6">
-        <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-3 flex-wrap">
-          <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span>{formattedDate}</span>
-          <span className="text-[#132257] font-medium">{article.source}</span>
+    <article className="bg-gradient-to-br from-[#0f1624] to-[#0c1420] rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden border border-[#1a2942] hover:border-[#2a3952] group animate-slide-up hover:scale-[1.02]">
+      <div className="p-5 sm:p-7">
+        <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-500 mb-4 flex-wrap">
+          <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <span className="font-light">{formattedDate}</span>
+          <span className="text-slate-400 font-light">•</span>
+          <span className="text-slate-300 font-light">{article.source}</span>
         </div>
 
-        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 group-hover:text-[#132257] transition-colors leading-snug">
+        <h3 className="text-lg sm:text-xl font-light text-white mb-4 group-hover:text-slate-200 transition-colors leading-snug">
           {article.title}
         </h3>
 
         {article.description && (
-          <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-400 mb-5 line-clamp-3 leading-relaxed font-light">
             {article.description}
           </p>
         )}
@@ -35,10 +36,10 @@ export default function NewsCard({ article }: NewsCardProps) {
           href={article.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-[#132257] font-semibold hover:text-[#1a2d6b] transition-all hover:gap-3 text-sm sm:text-base touch-manipulation active:scale-95"
+          className="inline-flex items-center gap-2 text-slate-300 font-light hover:text-white transition-all hover:gap-3 text-sm sm:text-base touch-manipulation active:scale-95 group/link"
         >
-          Read Full Article
-          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+          Read Article
+          <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/link:translate-x-0.5 transition-transform" />
         </a>
       </div>
     </article>

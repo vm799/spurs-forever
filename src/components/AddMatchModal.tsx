@@ -85,24 +85,24 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 animate-fade-in" onClick={onClose}>
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto scrollbar-thin animate-scale-in" onClick={(e) => e.stopPropagation()}>
-        <div className="sticky top-0 bg-[#132257] text-white p-4 sm:p-6 flex items-center justify-between z-10">
-          <h3 className="text-xl sm:text-2xl font-bold">Add Match Highlight</h3>
+    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" onClick={onClose}>
+      <div className="bg-gradient-to-br from-[#0f1624] to-[#0c1420] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto scrollbar-thin animate-scale-in border border-[#1a2942] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div className="sticky top-0 bg-gradient-to-r from-[#0c1420] via-[#0f1a2e] to-[#0c1420] text-white p-5 sm:p-6 flex items-center justify-between z-10 border-b border-[#1a2942]">
+          <h3 className="text-xl sm:text-2xl font-light">Add Match <span className="font-semibold">Highlight</span></h3>
           <button
             onClick={onClose}
             type="button"
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors touch-manipulation"
+            className="p-2 hover:bg-white/10 rounded-xl transition-colors touch-manipulation"
             aria-label="Close modal"
           >
             <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="p-5 sm:p-7 space-y-5 sm:space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-light text-slate-300 mb-2">
                 Match Date
               </label>
               <input
@@ -110,12 +110,12 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
                 required
                 value={formData.match_date}
                 onChange={(e) => setFormData({ ...formData, match_date: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#132257] focus:border-transparent"
+                className="w-full px-4 py-3 bg-[#0c1420] border border-[#1a2942] text-white rounded-xl focus:ring-2 focus:ring-[#2a3952] focus:border-[#2a3952] transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-light text-slate-300 mb-2">
                 Opponent
               </label>
               <input
@@ -124,12 +124,12 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
                 placeholder="e.g., Arsenal"
                 value={formData.opponent}
                 onChange={(e) => setFormData({ ...formData, opponent: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#132257] focus:border-transparent"
+                className="w-full px-4 py-3 bg-[#0c1420] border border-[#1a2942] text-white placeholder-slate-500 rounded-xl focus:ring-2 focus:ring-[#2a3952] focus:border-[#2a3952] transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-light text-slate-300 mb-2">
                 Score
               </label>
               <input
@@ -138,18 +138,18 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
                 placeholder="e.g., 2-1"
                 value={formData.score}
                 onChange={(e) => setFormData({ ...formData, score: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#132257] focus:border-transparent"
+                className="w-full px-4 py-3 bg-[#0c1420] border border-[#1a2942] text-white placeholder-slate-500 rounded-xl focus:ring-2 focus:ring-[#2a3952] focus:border-[#2a3952] transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-light text-slate-300 mb-2">
                 Competition
               </label>
               <select
                 value={formData.competition}
                 onChange={(e) => setFormData({ ...formData, competition: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#132257] focus:border-transparent"
+                className="w-full px-4 py-3 bg-[#0c1420] border border-[#1a2942] text-white rounded-xl focus:ring-2 focus:ring-[#2a3952] focus:border-[#2a3952] transition-all"
               >
                 <option>Premier League</option>
                 <option>Champions League</option>
@@ -161,12 +161,12 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
           </div>
 
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-bold text-gray-900">Goals</h4>
+            <div className="flex items-center justify-between mb-5">
+              <h4 className="text-lg font-light text-white">Goals</h4>
               <button
                 type="button"
                 onClick={addGoal}
-                className="flex items-center gap-2 px-3 py-1 bg-[#132257] text-white rounded-md hover:bg-[#1a2d6b] transition-colors text-sm touch-manipulation active:scale-95"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#1a2942] to-[#0f1a2e] text-white rounded-lg hover:from-[#2a3952] hover:to-[#1f2a3e] transition-all text-sm touch-manipulation active:scale-95 border border-[#2a3952]"
               >
                 <Plus className="w-4 h-4" />
                 Add Goal
@@ -175,16 +175,16 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
 
             <div className="space-y-4">
               {goals.map((goal, index) => (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg space-y-3">
+                <div key={index} className="p-4 bg-[#0c1420] rounded-xl space-y-3 border border-[#1a2942]">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-gray-700">
+                    <span className="text-sm font-light text-slate-300">
                       Goal {index + 1}
                     </span>
                     {goals.length > 1 && (
                       <button
                         type="button"
                         onClick={() => removeGoal(index)}
-                        className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors touch-manipulation"
+                        className="p-1.5 text-red-400 hover:bg-red-950/30 rounded-lg transition-colors touch-manipulation"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -197,21 +197,21 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
                       placeholder="Player name"
                       value={goal.player}
                       onChange={(e) => updateGoal(index, 'player', e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#132257] focus:border-transparent text-sm"
+                      className="px-3 py-2.5 bg-[#0a0e1a] border border-[#1a2942] text-white placeholder-slate-500 rounded-lg focus:ring-2 focus:ring-[#2a3952] focus:border-[#2a3952] text-sm transition-all"
                     />
                     <input
                       type="number"
                       placeholder="Minute"
                       value={goal.minute || ''}
                       onChange={(e) => updateGoal(index, 'minute', parseInt(e.target.value) || 0)}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#132257] focus:border-transparent text-sm"
+                      className="px-3 py-2.5 bg-[#0a0e1a] border border-[#1a2942] text-white placeholder-slate-500 rounded-lg focus:ring-2 focus:ring-[#2a3952] focus:border-[#2a3952] text-sm transition-all"
                     />
                     <input
                       type="url"
                       placeholder="Video link (optional)"
                       value={goal.video_link}
                       onChange={(e) => updateGoal(index, 'video_link', e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#132257] focus:border-transparent text-sm"
+                      className="px-3 py-2.5 bg-[#0a0e1a] border border-[#1a2942] text-white placeholder-slate-500 rounded-lg focus:ring-2 focus:ring-[#2a3952] focus:border-[#2a3952] text-sm transition-all"
                     />
                   </div>
                 </div>
@@ -219,18 +219,18 @@ export default function AddMatchModal({ onClose, onSuccess }: AddMatchModalProps
             </div>
           </div>
 
-          <div className="flex gap-3 pt-4">
+          <div className="flex gap-4 pt-5">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 sm:px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all font-semibold touch-manipulation active:scale-95"
+              className="flex-1 px-4 sm:px-6 py-3 border-2 border-[#1a2942] text-slate-300 rounded-xl hover:bg-[#1a2942] transition-all font-light touch-manipulation active:scale-95"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="flex-1 px-4 sm:px-6 py-3 bg-[#132257] text-white rounded-lg hover:bg-[#1a2d6b] transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation active:scale-95 shadow-md hover:shadow-lg"
+              className="flex-1 px-4 sm:px-6 py-3 bg-gradient-to-r from-[#1a2942] to-[#0f1a2e] text-white rounded-xl hover:from-[#2a3952] hover:to-[#1f2a3e] transition-all font-light disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation active:scale-95 shadow-xl border border-[#2a3952]"
             >
               {submitting ? 'Adding...' : 'Add Match'}
             </button>
