@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COYS Daily News Feed - Top 3 Essential Stories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #001C58;
+            --secondary: #FFFFFF;
+            --accent: #00FF87;
+            --urgent: #FF6B6B;
+            --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500);
+            --dark-bg: #0A0F23;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            background: rgba(10, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-weight: 900;
+            font-size: 2rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo i {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 2.2rem;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .refresh-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .main-content {
+            padding: 32px 0;
+        }
+
+        .feed-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .feed-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .feed-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .feed-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+            padding: 16px;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .feed-status.live {
+            background: rgba(0, 255, 135, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .feed-status.error {
+            background: rgba(255, 107, 107, 0.1);
+            border-color: var(--urgent);
+            color: var(--urgent);
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.3); }
+        }
+
+        .top-stories {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .story-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 32px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-gold);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .story-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .story-card:hover::before {
+            opacity: 1;
+        }
+
+        .story-ranking {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .story-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .story-category {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .story-category.transfer { background: #FF6B6B; color: white; }
+        .story-category.match_result { background: #4ECDC4; color: white; }
+        .story-category.injury { background: #FFD93D; color: var(--primary); }
+        .story-category.manager { background: #6BCF7F; color: var(--primary); }
+        .story-category.team_news { background: #4D96FF; color: white; }
+
+        .story-impact {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .story-impact.urgent {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--urgent);
+            border: 1px solid var(--urgent);
+        }
+
+        .story-impact.high {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            border: 1px solid #FFD700;
+        }
+
+        .story-impact.medium {
+            background: rgba(77, 150, 255, 0.2);
+            color: #4D96FF;
+            border: 1px solid #4D96FF;
+        }
+
+        .story-time {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .story-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            padding-right: 60px;
+        }
+
+        .story-summary {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .story-source {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 80px 40px;
+            color: var(--text-secondary);
+        }
+
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+            font-size: 3rem;
+            margin-bottom: 24px;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-state {
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            margin: 40px 0;
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            color: var(--urgent);
+            margin-bottom: 24px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 0 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .feed-title {
+                font-size: 2rem;
+            }
+
+            .story-card {
+                padding: 24px;
+            }
+
+            .story-ranking {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .story-title {
+                font-size: 1.2rem;
+                padding-right: 50px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 135, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="app-container">
+            <div class="header-content">
+                <div>
+                    <div class="logo">
+                        <i class="fas fa-newspaper"></i>
+                        COYS Daily Feed
+                    </div>
+                    <div class="tagline">Your Top 3 Essential Spurs Stories Every Day</div>
+                </div>
+                <button class="refresh-btn" onclick="refreshFeed()" id="refreshBtn">
+                    <i class="fas fa-sync"></i>
+                    Refresh Feed
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="app-container">
+            <div class="main-content">
+                <div class="feed-header">
+                    <h1 class="feed-title">Today's Must-Know</h1>
+                    <p class="feed-subtitle">The 3 most important Tottenham stories you need to know today</p>
+                </div>
+
+                <div class="feed-status" id="feedStatus">
+                    <div class="pulse"></div>
+                    <span>Connecting to live feeds...</span>
+                </div>
+
+                <div class="top-stories" id="topStories">
+                    <div class="loading">
+                        <i class="fas fa-spinner loading-spinner"></i>
+                        <h3>Loading Today's Top 3...</h3>
+                        <p>Fetching the latest Tottenham news from trusted sources</p>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <p class="footer-text">COYS Daily Feed - Real-time Tottenham news aggregation</p>
+                <div class="footer-links">
+                    <a href="https://www.tottenhamhotspur.com/" class="footer-link" target="_blank">
+                        Official Spurs Site
+                    </a>
+                    <a href="https://www.bbc.co.uk/sport/football/teams/tottenham-hotspur" class="footer-link" target="_blank">
+                        BBC Spurs
+                    </a>
+                    <a href="https://www.skysports.com/tottenham-hotspur" class="footer-link" target="_blank">
+                        Sky Sports
+                    </a>
+                    <a href="/api/daily-top-3" class="footer-link" target="_blank">
+                        API Feed
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        class COYSDailyFeed {
+            constructor() {
+                this.apiEndpoint = '/api/daily-top-3';
+                this.refreshInterval = 300000; // 5 minutes
+                this.lastUpdate = null;
+                this.init();
+            }
+
+            init() {
+                this.loadDailyTop3();
+                this.startAutoRefresh();
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                // Refresh when tab becomes visible
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden && this.shouldRefresh()) {
+                        this.loadDailyTop3();
+                    }
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'r' && (e.ctrlKey || e.metaKey)) {
+                        e.preventDefault();
+                        this.refreshFeed();
+                    }
+                });
+            }
+
+            async loadDailyTop3() {
+                try {
+                    this.updateFeedStatus('Fetching latest stories...', 'loading');
+                    
+                    const response = await fetch(this.apiEndpoint);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const data = await response.json();
+                    
+                    if (data.success && data.data && data.data.stories) {
+                        this.displayStories(data.data);
+                        this.updateFeedStatus('Live feed active', 'live');
+                        this.lastUpdate = new Date();
+                    } else {
+                        throw new Error('Invalid data structure');
+                    }
+                } catch (error) {
+                    console.error('Failed to load daily top 3:', error);
+                    this.displayError(error.message);
+                    this.updateFeedStatus('Connection error - retrying...', 'error');
+                    
+                    // Retry after 10 seconds on error
+                    setTimeout(() => this.loadDailyTop3(), 10000);
+                }
+            }
+
+            displayStories(feedData) {
+                const container = document.getElementById('topStories');
+                const stories = feedData.stories || [];
+                
+                if (stories.length === 0) {
+                    container.innerHTML = `
+                        <div class="error-state">
+                            <div class="error-icon">📰</div>
+                            <h3>No stories available</h3>
+                            <p>Check back soon for the latest Tottenham updates</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = stories.map((story, index) => `
+                    <article class="story-card" onclick="openStory('${story.url}')" tabindex="0" role="button">
+                        <div class="story-ranking">${index + 1}</div>
+                        
+                        <div class="story-meta">
+                            <span class="story-category ${story.category.toLowerCase()}">${story.category.replace('_', ' ')}</span>
+                            <span class="story-impact ${story.impact.toLowerCase()}">${story.impact}</span>
+                            ${story.impact === 'URGENT' ? '<span class="live-indicator"><div class="pulse"></div>LIVE</span>' : ''}
+                            <span class="story-time">
+                                <i class="fas fa-clock"></i>
+                                ${this.formatTimeAgo(story.publishedAt)}
+                            </span>
+                        </div>
+
+                        <h2 class="story-title">${story.title}</h2>
+                        <p class="story-summary">${story.summary}</p>
+                        
+                        <div class="story-source">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>${story.source}</span>
+                        </div>
+                    </article>
+                `).join('');
+
+                // Update page title with latest story count
+                document.title = `COYS Daily Feed - ${stories.length} Essential Stories Today`;
+            }
+
+            displayError(message) {
+                const container = document.getElementById('topStories');
+                container.innerHTML = `
+                    <div class="error-state">
+                        <div class="error-icon">⚠️</div>
+                        <h3>Unable to load stories</h3>
+                        <p>Error: ${message}</p>
+                        <button onclick="window.coysApp.loadDailyTop3()" style="margin-top: 20px; padding: 12px 24px; background: var(--urgent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            Try Again
+                        </button>
+                    </div>
+                `;
+            }
+
+            updateFeedStatus(message, type) {
+                const statusElement = document.getElementById('feedStatus');
+                if (!statusElement) return;
+
+                statusElement.className = `feed-status ${type}`;
+                
+                const icon = type === 'live' ? 'fas fa-wifi' : 
+                           type === 'error' ? 'fas fa-exclamation-triangle' : 
+                           'fas fa-spinner fa-spin';
+                
+                statusElement.innerHTML = `
+                    ${type === 'live' ? '<div class="pulse"></div>' : `<i class="${icon}"></i>`}
+                    <span>${message}</span>
+                `;
+            }
+
+            async refreshFeed() {
+                const btn = document.getElementById('refreshBtn');
+                if (!btn || btn.disabled) return;
+
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+
+                try {
+                    const response = await fetch('/api/refresh');
+                    if (response.ok) {
+                        await this.loadDailyTop3();
+                    } else {
+                        throw new Error('Refresh failed');
+                    }
+                } catch (error) {
+                    this.updateFeedStatus('Refresh failed - retrying...', 'error');
+                } finally {
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-sync"></i> Refresh Feed';
+                    }, 2000);
+                }
+            }
+
+            startAutoRefresh() {
+                setInterval(() => {
+                    if (this.shouldRefresh()) {
+                        this.loadDailyTop3();
+                    }
+                }, this.refreshInterval);
+            }
+
+            shouldRefresh() {
+                if (!this.lastUpdate) return true;
+                const timeSinceUpdate = Date.now() - this.lastUpdate.getTime();
+                return timeSinceUpdate > this.refreshInterval;
+            }
+
+            formatTimeAgo(dateString) {
+                const date = new Date(dateString);
+                const now = new Date();
+                const diffInSeconds = Math.floor((now - date) / 1000);
+                
+                if (diffInSeconds < 60) return 'Just now';
+                if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+                if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+                
+                const days = Math.floor(diffInSeconds / 86400);
+                if (days === 1) return 'Yesterday';
+                if (days < 7) return `${days} days ago`;
+                
+                return date.toLocaleDateString();
+            }
+        }
+
+        // Global functions
+        function openStory(url) {
+            if (url && url !== '#') {
+                window.open(url, '_blank');
+            }
+        }
+
+        function refreshFeed() {
+            window.coysApp.refreshFeed();
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            window.coysApp = new COYSDailyFeed();
+        });
+
+        // Service Worker registration for offline support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed:', err));
+        }
+    </script>
+</body>
+</html>
